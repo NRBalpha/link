@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link AI - Sign In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #e0e0e0;
+        }
+
+        .auth-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-header h1 {
+            font-size: 2rem;
+            color: #4CAF50;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-header p {
+            color: #888;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: #888;
+        }
+
+        .auth-button {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .auth-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .auth-button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #888;
+        }
+
+        .auth-switch a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(255, 68, 68, 0.1);
+            border-radius: 4px;
+            display: none;
+        }
+
+        .loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sign In Form -->
+    <div class="auth-container" id="signin-container">
+        <div class="auth-header">
+            <h1>Welcome Back</h1>
+            <p>Sign in to continue chatting</p>
+        </div>
+
+        <form class="auth-form" id="signin-form">
+            <div class="form-group">
+                <input type="email" id="signin-email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="signin-password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="auth-button" id="signin-button">Sign In</button>
+            <div class="error-message" id="signin-error"></div>
+        </form>
+
+        <div class="auth-switch">
+            Don't have an account? <a href="/signup">Sign Up</a>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="{{ url_for('static', filename='firebase-config.js') }}"></script>
+    <script>
+        // Initialize Firebase
+        const auth = firebase.auth();
+        const signinForm = document.getElementById('signin-form');
+        const signinButton = document.getElementById('signin-button');
+        const errorMessage = document.getElementById('signin-error');
+
+        // Check if user is already signed in
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in, redirect to welcome page
+                window.location.href = '/welcome';
+            }
+        });
+
+        // Form submission
+        signinForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('signin-email').value;
+            const password = document.getElementById('signin-password').value;
+
+            try {
+                // Disable form and show loading state
+                signinButton.disabled = true;
+                signinButton.classList.add('loading');
+                errorMessage.style.display = 'none';
+
+                // Sign in user
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                
+                // Redirect to welcome page
+                window.location.href = '/welcome';
+
+            } catch (error) {
+                console.error('Sign in error:', error);
+                // Handle specific error cases
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                    case 'auth/wrong-password':
+                        errorMessage.textContent = 'Invalid email or password';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage.textContent = 'Please enter a valid email address';
+                        break;
+                    case 'auth/too-many-requests':
+                        errorMessage.textContent = 'Too many failed attempts. Please try again later';
+                        break;
+                    default:
+                        errorMessage.textContent = 'An error occurred. Please try again';
+                }
+                errorMessage.style.display = 'block';
+                
+                // Re-enable form
+                signinButton.disabled = false;
+                signinButton.classList.remove('loading');
+            }
+        });
+    </script>
+</body>
+</html>
+

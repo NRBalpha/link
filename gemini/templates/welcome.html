@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Link AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            margin: 12px 20px 0 20px;
+            border-radius: 45px 45px 35px 35px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.03) 0%, 
+                rgba(255, 255, 255, 0.06) 30%,
+                rgba(255, 255, 255, 0.04) 70%,
+                rgba(255, 255, 255, 0.02) 100%);
+            backdrop-filter: blur(30px) saturate(200%) brightness(1.3) contrast(1.1);
+            -webkit-backdrop-filter: blur(30px) saturate(200%) brightness(1.3) contrast(1.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background-clip: padding-box;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.08),
+                0 10px 20px rgba(0, 0, 0, 0.04),
+                inset 0 1px 2px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 2px rgba(255, 255, 255, 0.08),
+                inset -2px 0 4px rgba(255, 255, 255, 0.06),
+                inset 2px 0 4px rgba(255, 255, 255, 0.04),
+                0 0 0 0.5px rgba(255, 255, 255, 0.05),
+                0 8px 32px rgba(255, 255, 255, 0.02),
+                0 1px 0 rgba(255, 255, 255, 0.1) inset;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(0) scale(1);
+            opacity: 0.95;
+        }
+
+        .navbar:hover {
+            transform: translateY(-3px) scale(1.02);
+            border-radius: 50px 50px 40px 40px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.05) 0%, 
+                rgba(255, 255, 255, 0.08) 30%,
+                rgba(255, 255, 255, 0.06) 70%,
+                rgba(255, 255, 255, 0.04) 100%);
+            backdrop-filter: blur(35px) saturate(250%) brightness(1.4) contrast(1.15);
+            -webkit-backdrop-filter: blur(35px) saturate(250%) brightness(1.4) contrast(1.15);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.1),
+                0 12px 24px rgba(0, 0, 0, 0.06),
+                inset 0 2px 4px rgba(255, 255, 255, 0.2),
+                inset 0 -2px 4px rgba(255, 255, 255, 0.12),
+                inset -3px 0 6px rgba(255, 255, 255, 0.1),
+                inset 3px 0 6px rgba(255, 255, 255, 0.08),
+                0 0 0 0.5px rgba(255, 255, 255, 0.08),
+                0 12px 40px rgba(255, 255, 255, 0.03),
+                0 1px 0 rgba(255, 255, 255, 0.15) inset,
+                0 0 20px rgba(255, 255, 255, 0.02);
+            opacity: 0.98;
+        }
+
+        body.dark-theme .navbar {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.02) 0%, 
+                rgba(255, 255, 255, 0.04) 30%,
+                rgba(255, 255, 255, 0.03) 70%,
+                rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(30px) saturate(200%) brightness(1.2) contrast(1.1);
+            -webkit-backdrop-filter: blur(30px) saturate(200%) brightness(1.2) contrast(1.1);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.15),
+                0 10px 20px rgba(0, 0, 0, 0.08),
+                inset 0 1px 2px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 2px rgba(255, 255, 255, 0.05),
+                inset -2px 0 4px rgba(255, 255, 255, 0.04),
+                inset 2px 0 4px rgba(255, 255, 255, 0.02),
+                0 0 0 0.5px rgba(255, 255, 255, 0.03),
+                0 8px 32px rgba(255, 255, 255, 0.01),
+                0 1px 0 rgba(255, 255, 255, 0.06) inset;
+            opacity: 0.92;
+        }
+
+        body.dark-theme .navbar:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.04) 0%, 
+                rgba(255, 255, 255, 0.06) 30%,
+                rgba(255, 255, 255, 0.05) 70%,
+                rgba(255, 255, 255, 0.03) 100%);
+            backdrop-filter: blur(35px) saturate(250%) brightness(1.3) contrast(1.15);
+            -webkit-backdrop-filter: blur(35px) saturate(250%) brightness(1.3) contrast(1.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.2),
+                0 12px 24px rgba(0, 0, 0, 0.12),
+                inset 0 2px 4px rgba(255, 255, 255, 0.15),
+                inset 0 -2px 4px rgba(255, 255, 255, 0.08),
+                inset -3px 0 6px rgba(255, 255, 255, 0.08),
+                inset 3px 0 6px rgba(255, 255, 255, 0.06),
+                0 0 0 0.5px rgba(255, 255, 255, 0.06),
+                0 12px 40px rgba(255, 255, 255, 0.02),
+                0 1px 0 rgba(255, 255, 255, 0.1) inset,
+                0 0 20px rgba(255, 255, 255, 0.01);
+            opacity: 0.96;
+        }
+
+        body.light-theme .navbar {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.15) 0%, 
+                rgba(255, 255, 255, 0.25) 30%,
+                rgba(255, 255, 255, 0.2) 70%,
+                rgba(255, 255, 255, 0.1) 100%);
+            backdrop-filter: blur(25px) saturate(180%) brightness(1.15) contrast(1.05);
+            -webkit-backdrop-filter: blur(25px) saturate(180%) brightness(1.15) contrast(1.05);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.04),
+                0 10px 20px rgba(0, 0, 0, 0.02),
+                inset 0 1px 2px rgba(255, 255, 255, 0.6),
+                inset 0 -1px 2px rgba(255, 255, 255, 0.3),
+                inset -2px 0 4px rgba(255, 255, 255, 0.4),
+                inset 2px 0 4px rgba(255, 255, 255, 0.2),
+                0 0 0 0.5px rgba(255, 255, 255, 0.4),
+                0 8px 32px rgba(0, 0, 0, 0.01),
+                0 1px 0 rgba(255, 255, 255, 0.8) inset;
+            opacity: 0.9;
+        }
+
+        body.light-theme .navbar:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.2) 0%, 
+                rgba(255, 255, 255, 0.3) 30%,
+                rgba(255, 255, 255, 0.25) 70%,
+                rgba(255, 255, 255, 0.15) 100%);
+            backdrop-filter: blur(30px) saturate(200%) brightness(1.2) contrast(1.1);
+            -webkit-backdrop-filter: blur(30px) saturate(200%) brightness(1.2) contrast(1.1);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.06),
+                0 12px 24px rgba(0, 0, 0, 0.03),
+                inset 0 2px 4px rgba(255, 255, 255, 0.8),
+                inset 0 -2px 4px rgba(255, 255, 255, 0.4),
+                inset -3px 0 6px rgba(255, 255, 255, 0.6),
+                inset 3px 0 6px rgba(255, 255, 255, 0.3),
+                0 0 0 0.5px rgba(255, 255, 255, 0.5),
+                0 12px 40px rgba(0, 0, 0, 0.02),
+                0 1px 0 rgba(255, 255, 255, 0.9) inset,
+                0 0 20px rgba(255, 255, 255, 0.1);
+            opacity: 0.95;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #123456;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .logo:hover {
+            background: rgba(30, 50, 71, 0.1);
+            transform: translateY(-1px);
+        }
+
+        body.light-theme .logo {
+            color: #123456;
+        }
+
+        body.light-theme .menu-button {
+            color: #1e3247;
+        }
+
+        .menu-button {
+            background: transparent;
+            border: none;
+            color: #e0e0e0;
+            cursor: pointer;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-button:hover {
+            color: #1e3247;
+        }
+
+        .menu-bar {
+            width: 24px;
+            height: 2px;
+            background-color: currentColor;
+            transition: all 0.3s ease;
+        }
+
+        .menu-button.active .menu-bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .menu-button.active .menu-bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-button.active .menu-bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 12px;
+            left: -340px;
+            width: 320px;
+            height: calc(100vh - 24px);
+            margin: 0 12px;
+            border-radius: 60px 30px 30px 60px;
+            background: radial-gradient(ellipse at 40% 30%, 
+                rgba(255, 255, 255, 0.12) 0%,
+                rgba(255, 255, 255, 0.08) 30%,
+                rgba(255, 255, 255, 0.04) 60%,
+                rgba(255, 255, 255, 0.015) 90%,
+                rgba(255, 255, 255, 0.003) 100%);
+            backdrop-filter: blur(35px) saturate(200%) brightness(1.2);
+            -webkit-backdrop-filter: blur(35px) saturate(200%) brightness(1.2);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            box-shadow: 
+                0 35px 70px rgba(0, 0, 0, 0.5),
+                0 15px 30px rgba(0, 0, 0, 0.4),
+                inset 0 2px 4px rgba(255, 255, 255, 0.2),
+                inset 0 -2px 4px rgba(255, 255, 255, 0.08),
+                inset -4px 0 12px rgba(255, 255, 255, 0.12),
+                inset 2px 0 6px rgba(255, 255, 255, 0.05),
+                0 0 0 1px rgba(255, 255, 255, 0.08);
+            transition: left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 1000;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.active {
+            left: 0;
+            transform: scale(1.01);
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            color: #123456;
+            font-weight: 600;
+        }
+
+        .new-chat-button {
+            background: linear-gradient(45deg, #1e3247, #1e3247);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .new-chat-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(30, 50, 71, 0.3);
+        }
+
+        .chat-history {
+            margin-top: 1rem;
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-history-title {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .chat-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            overflow-y: auto;
+            flex: 1;
+            padding-right: 8px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .chat-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .chat-item {
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+        }
+
+        .chat-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-item.active {
+            background: rgba(30, 50, 71, 0.1);
+            color: #123456;
+        }
+
+        .chat-item-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .chat-item-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-item-time {
+            font-size: 0.75rem;
+            opacity: 0.6;
+        }
+
+        .delete-chat-btn {
+            background: transparent;
+            border: none;
+            color: #ff4444;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .chat-item:hover .delete-chat-btn {
+            opacity: 1;
+        }
+
+        .delete-chat-btn:hover {
+            background: rgba(255, 68, 68, 0.1);
+            transform: scale(1.1);
+        }
+
+        .delete-chat-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover svg {
+            transform: rotate(30deg);
+        }
+
+        .nav-button {
+            background: transparent;
+            color: #e0e0e0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            padding-top: 120px; /* Add padding for fixed navbar */
+        }
+
+        .welcome-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #123456, #123456);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-description {
+            font-size: 1.1rem;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .chat-button {
+            background: linear-gradient(45deg, #1e3247, #1e3247);
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 0 auto;
+        }
+
+        .chat-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(30, 50, 71, 0.3);
+            background: linear-gradient(45deg, #1e3247, #1e3247);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .tech-card {
+            position: relative;
+            border-radius: 45px 45px 35px 35px;
+            background: radial-gradient(ellipse at 40% 25%, 
+                rgba(26, 26, 26, 0.95) 0%,
+                rgba(35, 35, 35, 0.9) 30%,
+                rgba(40, 40, 40, 0.85) 70%,
+                rgba(45, 45, 45, 0.8) 100%);
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.15),
+                0 10px 20px rgba(0, 0, 0, 0.1),
+                inset 0 2px 4px rgba(255, 255, 255, 0.2),
+                inset 0 -2px 4px rgba(255, 255, 255, 0.1),
+                inset -3px 0 8px rgba(255, 255, 255, 0.15),
+                inset 3px 0 8px rgba(255, 255, 255, 0.08),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                       border-radius 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                       box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translate3d(0, 0, 0) scale(1);
+            will-change: transform;
+            overflow: hidden;
+        }
+
+        .tech-card:hover {
+            transform: translate3d(0, -5px, 0) scale(1.02);
+            border-radius: 50px 50px 40px 40px;
+            background: radial-gradient(ellipse at 40% 25%, 
+                rgba(26, 26, 26, 0.98) 0%,
+                rgba(35, 35, 35, 0.93) 30%,
+                rgba(40, 40, 40, 0.88) 70%,
+                rgba(45, 45, 45, 0.83) 100%);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.18),
+                0 12px 24px rgba(0, 0, 0, 0.12),
+                inset 0 3px 6px rgba(255, 255, 255, 0.3),
+                inset 0 -3px 6px rgba(255, 255, 255, 0.15),
+                inset -4px 0 12px rgba(255, 255, 255, 0.2),
+                inset 4px 0 12px rgba(255, 255, 255, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.15);
+        }
+
+        .tech-card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .tech-card-description {
+            color: white;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        .tech-logos {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-logo-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(163, 163, 163, 0.2); /* bg-neutral-300/20 */
+            backdrop-filter: blur(1px); /* backdrop-blur-[1px] */
+            border: 1px solid rgba(163, 163, 163, 0.2); /* border border-neutral-400/20 */
+            color: #525252; /* text-neutral-600 */
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-logo-item:hover {
+            background: rgba(163, 163, 163, 0.3); /* hover:bg-neutral-300/30 */
+            transform: translateX(5px);
+        }
+
+        .tech-logo-item img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            filter: grayscale(100%) brightness(0.8);
+            transition: all 0.3s ease;
+        }
+
+        .tech-logo-item:hover img {
+            filter: grayscale(0%) brightness(1);
+            transform: scale(1.1);
+        }
+
+        /* Updated tech name styles - removed background colors */
+        .tech-name {
+            font-weight: 500;
+            color: #e0e0e0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-logo-item:hover .tech-name {
+            color: #123456;
+        }
+
+        .frontend-card:hover {
+            background: rgba(38, 77, 228, 0.05);
+        }
+
+        .backend-card:hover {
+            background: rgba(48, 105, 152, 0.05);
+        }
+
+        /* Light theme styles */
+        body.light-theme {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            color: #333;
+        }
+
+        body.light-theme .logo {
+            color: #123456;
+        }
+
+        body.light-theme .menu-button {
+            color: #1e3247;
+        }
+
+        body.light-theme .sidebar {
+            background: radial-gradient(ellipse at 40% 30%, 
+                rgba(255, 255, 255, 0.8) 0%,
+                rgba(255, 255, 255, 0.7) 30%,
+                rgba(255, 255, 255, 0.6) 60%,
+                rgba(255, 255, 255, 0.5) 90%,
+                rgba(255, 255, 255, 0.4) 100%);
+            backdrop-filter: blur(25px) saturate(180%) brightness(1.1);
+            -webkit-backdrop-filter: blur(25px) saturate(180%) brightness(1.1);
+            box-shadow: 
+                0 35px 70px rgba(0, 0, 0, 0.08),
+                0 15px 30px rgba(0, 0, 0, 0.05),
+                inset 0 2px 4px rgba(255, 255, 255, 0.9),
+                inset 0 -2px 4px rgba(255, 255, 255, 0.4),
+                inset -4px 0 12px rgba(255, 255, 255, 0.6),
+                inset 2px 0 6px rgba(255, 255, 255, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.6),
+                0 0 0 2px rgba(0, 0, 0, 0.03);
+        }
+
+        body.light-theme .sidebar.active {
+            /* Removed - using simpler chat page approach */
+        }
+
+        body.light-theme .sidebar-title {
+            color: #123456;
+        }
+
+        body.light-theme .chat-item {
+            color: #333;
+        }
+
+        body.light-theme .chat-item:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-theme .chat-item.active {
+            background: rgba(30, 50, 71, 0.1);
+            color: #123456;
+        }
+
+        body.light-theme .theme-toggle {
+            color: #333;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-theme .welcome-title {
+            color: #123456;
+            background: linear-gradient(45deg, #123456, #123456);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        body.light-theme .welcome-description {
+            color: #666;
+        }
+
+        body.light-theme .tech-card {
+            background: radial-gradient(ellipse at 40% 25%, 
+                rgba(245, 245, 245, 0.85) 0%,
+                rgba(235, 235, 235, 0.75) 30%,
+                rgba(225, 225, 225, 0.65) 70%,
+                rgba(224, 224, 224, 0.55) 100%);
+            backdrop-filter: blur(25px) saturate(180%) brightness(1.1);
+            -webkit-backdrop-filter: blur(25px) saturate(180%) brightness(1.1);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.08),
+                0 10px 20px rgba(0, 0, 0, 0.05),
+                inset 0 2px 4px rgba(255, 255, 255, 0.9),
+                inset 0 -2px 4px rgba(255, 255, 255, 0.4),
+                inset -3px 0 8px rgba(255, 255, 255, 0.6),
+                inset 3px 0 8px rgba(255, 255, 255, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.5),
+                0 0 0 2px rgba(0, 0, 0, 0.03);
+            color: #525252;
+        }
+
+        body.light-theme .tech-card:hover {
+            background: radial-gradient(ellipse at 40% 25%, 
+                rgba(245, 245, 245, 0.9) 0%,
+                rgba(235, 235, 235, 0.8) 30%,
+                rgba(225, 225, 225, 0.7) 70%,
+                rgba(224, 224, 224, 0.6) 100%);
+            backdrop-filter: blur(30px) saturate(200%) brightness(1.15);
+            -webkit-backdrop-filter: blur(30px) saturate(200%) brightness(1.15);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.12),
+                0 12px 24px rgba(0, 0, 0, 0.08),
+                inset 0 3px 6px rgba(255, 255, 255, 1),
+                inset 0 -3px 6px rgba(255, 255, 255, 0.5),
+                inset -4px 0 12px rgba(255, 255, 255, 0.8),
+                inset 4px 0 12px rgba(255, 255, 255, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.7),
+                0 0 0 2px rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-theme .tech-card-title {
+            color: #333;
+        }
+
+        body.light-theme .tech-card-description {
+            color: #333;
+            opacity: 0.8;
+        }
+
+        body.light-theme .tech-logo-item {
+            background: rgba(163, 163, 163, 0.2);
+            color: #525252;
+            border: 1px solid rgba(163, 163, 163, 0.2);
+        }
+
+        body.light-theme .tech-logo-item:hover {
+            background: rgba(163, 163, 163, 0.3);
+        }
+
+        body.light-theme .tech-name {
+            color: #525252;
+        }
+
+        body.light-theme .new-chat-button {
+            background: linear-gradient(45deg, #1e3247, #1e3247);
+        }
+
+        body.light-theme .chat-button {
+            background: linear-gradient(45deg, #1e3247, #1e3247);
+        }
+
+        body.light-theme .nav-button {
+            color: #333;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .nav-button:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-theme .delete-chat-btn {
+            color: #ff4444;
+        }
+
+        body.light-theme .delete-chat-btn:hover {
+            background: rgba(255, 68, 68, 0.1);
+        }
+
+        /* Mobile touch improvements */
+        @media (max-width: 768px) {
+            .navbar {
+                margin: 8px 10px 0 10px;
+                padding: 0.75rem 1rem;
+                border-radius: 35px 35px 25px 25px;
+                /* Improve touch targets */
+                min-height: 60px;
+            }
+
+            .navbar:hover {
+                border-radius: 40px 40px 30px 30px;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+                /* Better touch target */
+                padding: 8px 12px;
+            }
+
+            .container {
+                padding: 1rem;
+                padding-top: 100px;
+            }
+
+            .welcome-title {
+                font-size: 2rem;
+            }
+
+            .welcome-description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+
+            .chat-button {
+                padding: 12px 28px;
+                font-size: 1rem;
+                /* Better touch target */
+                min-height: 44px;
+            }
+
+            .tech-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+
+            .tech-card {
+                padding: 1.5rem;
+                border-radius: 35px 35px 25px 25px;
+                /* Prevent text selection on touch */
+                -webkit-user-select: none;
+                user-select: none;
+            }
+
+            .tech-card:hover {
+                border-radius: 40px 40px 30px 30px;
+            }
+
+            .tech-card-title {
+                font-size: 1.3rem;
+            }
+
+            .tech-card-description {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+                line-height: 1.5;
+            }
+
+            .tech-logos {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .tech-logo-item {
+                padding: 0.75rem;
+                /* Better touch target */
+                min-height: 44px;
+            }
+
+            .tech-logo-item img {
+                width: 28px;
+                height: 28px;
+            }
+
+            .sidebar {
+                width: 280px;
+                left: -300px;
+                margin: 0 8px;
+                border-radius: 50px 20px 20px 50px;
+                padding: 1.5rem;
+                /* Improve scrolling on mobile */
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .menu-button {
+                padding: 8px;
+                gap: 4px;
+                /* Better touch target */
+                min-width: 44px;
+                min-height: 44px;
+            }
+
+            .menu-bar {
+                width: 20px;
+                height: 2px;
+            }
+
+            .theme-toggle {
+                width: 40px;
+                height: 40px;
+                padding: 8px;
+                /* Better touch target */
+                min-width: 44px;
+                min-height: 44px;
+            }
+
+            .theme-toggle svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .nav-button {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+                /* Better touch target */
+                min-height: 44px;
+            }
+
+            .chat-item {
+                padding: 12px;
+                /* Better touch target */
+                min-height: 44px;
+            }
+
+            .chat-item-title {
+                font-size: 0.9rem;
+            }
+
+            .new-chat-button {
+                padding: 12px 20px;
+                font-size: 0.95rem;
+                /* Better touch target */
+                min-height: 44px;
+            }
+
+            .delete-chat-btn {
+                /* Always visible on mobile for better UX */
+                opacity: 1;
+                /* Better touch target */
+                min-width: 32px;
+                min-height: 32px;
+                padding: 8px;
+            }
+
+            /* Prevent zoom on input focus */
+            input, button, select, textarea {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                margin: 6px 8px 0 8px;
+                padding: 0.5rem 0.75rem;
+                min-height: 56px;
+            }
+
+            .container {
+                padding: 0.75rem;
+                padding-top: 85px;
+            }
+
+            .welcome-title {
+                font-size: 1.75rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .welcome-description {
+                font-size: 0.95rem;
+                margin-bottom: 1.5rem;
+                padding: 0 0.5rem;
+            }
+
+            .chat-button {
+                padding: 10px 24px;
+                font-size: 0.95rem;
+                min-height: 44px;
+            }
+
+            .tech-card {
+                padding: 1.25rem;
+            }
+
+            .tech-card-title {
+                font-size: 1.2rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .tech-card-description {
+                font-size: 0.85rem;
+                margin-bottom: 1.25rem;
+                line-height: 1.4;
+            }
+
+            .tech-logo-item {
+                padding: 0.6rem;
+                gap: 0.75rem;
+                min-height: 40px;
+            }
+
+            .tech-logo-item img {
+                width: 24px;
+                height: 24px;
+            }
+
+            .tech-name {
+                font-size: 0.85rem;
+            }
+
+            .sidebar {
+                width: 260px;
+                left: -280px;
+                padding: 1.25rem;
+            }
+
+            .logo {
+                font-size: 1.1rem;
+                padding: 6px 10px;
+            }
+
+            .nav-buttons {
+                gap: 0.5rem;
+            }
+
+            .nav-button {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+                min-height: 40px;
+            }
+
+            .theme-toggle {
+                width: 36px;
+                height: 36px;
+                min-width: 40px;
+                min-height: 40px;
+                padding: 6px;
+            }
+
+            .theme-toggle svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .menu-button {
+                padding: 6px;
+                min-width: 40px;
+                min-height: 40px;
+            }
+
+            .chat-item {
+                padding: 10px;
+                min-height: 40px;
+            }
+
+            .new-chat-button {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+                min-height: 40px;
+            }
+
+            .delete-chat-btn {
+                min-width: 28px;
+                min-height: 28px;
+                padding: 6px;
+            }
+
+            /* Ensure adequate spacing for small screens */
+            .welcome-header {
+                margin-bottom: 2rem;
+            }
+
+            .tech-grid {
+                margin-top: 1.5rem;
+            }
+        }
+
+        /* Dark theme styles */
+        body.dark-theme {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+        }
+
+        body.dark-theme .logo {
+            color: #123456;
+        }
+
+        body.dark-theme .menu-button {
+            color: #e0e0e0;
+        }
+
+        body.dark-theme .sidebar {
+            background: radial-gradient(ellipse at 40% 30%, 
+                rgba(255, 255, 255, 0.12) 0%,
+                rgba(255, 255, 255, 0.08) 30%,
+                rgba(255, 255, 255, 0.04) 60%,
+                rgba(255, 255, 255, 0.015) 90%,
+                rgba(255, 255, 255, 0.003) 100%);
+            box-shadow: 
+                0 35px 70px rgba(0, 0, 0, 0.5),
+                0 15px 30px rgba(0, 0, 0, 0.4),
+                inset 0 2px 4px rgba(255, 255, 255, 0.2),
+                inset 0 -2px 4px rgba(255, 255, 255, 0.08),
+                inset -4px 0 12px rgba(255, 255, 255, 0.12),
+                inset 2px 0 6px rgba(255, 255, 255, 0.05),
+                0 0 0 1px rgba(255, 255, 255, 0.08);
+        }
+
+        body.dark-theme .sidebar-title {
+            color: #e0e0e0;
+        }
+
+        body.dark-theme .chat-item {
+            color: #e0e0e0;
+        }
+
+        body.dark-theme .chat-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        body.dark-theme .chat-item.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: #123456;
+        }
+
+        body.dark-theme .theme-toggle {
+            color: #e0e0e0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-theme .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-theme .nav-button {
+            color: #e0e0e0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-theme .nav-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-theme .welcome-title {
+            color: #e0e0e0;
+            background: linear-gradient(45deg, #123456, #123456);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        body.dark-theme .welcome-description {
+            color: #b0b0b0;
+        }
+
+        body.dark-theme .tech-card {
+            background: radial-gradient(ellipse at 40% 25%, 
+                rgba(45, 45, 45, 0.95) 0%,
+                rgba(45, 45, 45, 0.9) 30%,
+                rgba(45, 45, 45, 0.85) 70%,
+                rgba(45, 45, 45, 0.8) 100%);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                0 10px 20px rgba(0, 0, 0, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.2),
+                inset 0 -2px 4px rgba(255, 255, 255, 0.1),
+                inset -3px 0 8px rgba(255, 255, 255, 0.15),
+                inset 3px 0 8px rgba(255, 255, 255, 0.08),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            color: #d4d4d4;
+        }
+
+        body.dark-theme .tech-card:hover {
+            background: radial-gradient(ellipse at 40% 25%, 
+                rgba(45, 45, 45, 0.98) 0%,
+                rgba(45, 45, 45, 0.93) 30%,
+                rgba(45, 45, 45, 0.88) 70%,
+                rgba(45, 45, 45, 0.83) 100%);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                0 12px 24px rgba(0, 0, 0, 0.4),
+                inset 0 3px 6px rgba(255, 255, 255, 0.3),
+                inset 0 -3px 6px rgba(255, 255, 255, 0.15),
+                inset -4px 0 12px rgba(255, 255, 255, 0.2),
+                inset 4px 0 12px rgba(255, 255, 255, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.15);
+        }
+
+        body.dark-theme .tech-card-title {
+            color: white;
+        }
+
+        body.dark-theme .tech-card-description {
+            color: white;
+        }
+
+        body.dark-theme .tech-logo-item {
+            background: rgba(163, 163, 163, 0.2);
+            color: #d4d4d4;
+            border: 1px solid rgba(163, 163, 163, 0.2);
+        }
+
+        body.dark-theme .tech-logo-item:hover {
+            background: rgba(163, 163, 163, 0.3);
+        }
+
+        body.dark-theme .tech-name {
+            color: #d4d4d4;
+        }
+
+        body.dark-theme .new-chat-button {
+            background: linear-gradient(45deg, #1e3247, #1e3247);
+        }
+
+        body.dark-theme .chat-button {
+            background: linear-gradient(45deg, #1e3247, #1e3247);
+        }
+
+        body.dark-theme .delete-chat-btn {
+            color: #ff4444;
+        }
+
+        body.dark-theme .delete-chat-btn:hover {
+            background: rgba(255, 68, 68, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-container">
+            <button class="menu-button" onclick="toggleSidebar()">
+                <div class="menu-bar"></div>
+                <div class="menu-bar"></div>
+                <div class="menu-bar"></div>
+            </button>
+            <div class="logo" onclick="window.location.href='/welcome'">Link AI</div>
+        </div>
+        <div class="nav-buttons">
+            <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM12 19C8.13401 19 5 15.866 5 12C5 8.13401 8.13401 5 12 5C15.866 5 19 8.13401 19 12C19 15.866 15.866 19 12 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 1V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 21V23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.22 4.22L5.64 5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M18.36 18.36L19.78 19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M1 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21 12H23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.22 19.78L5.64 18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <button class="nav-button" onclick="signOut()">Sign Out</button>
+        </div>
+    </nav>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+        </div>
+        <button class="new-chat-button" onclick="startNewChat()">
+            <span>+</span> New Chat
+        </button>
+        <div class="chat-history">
+            <div class="chat-list" id="chatList">
+                <!-- Chat items will be added dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" onclick="toggleSidebar()"></div>
+
+    <div class="container">
+        <div class="welcome-header">
+            <h1 class="welcome-title">Welcome to Link AI</h1>
+            <p class="welcome-description">Your intelligent chat companion powered by cutting-edge technology</p>
+            <button class="chat-button" onclick="window.location.href='/chat'">Start Chatting</button>
+        </div>
+
+        <div class="tech-grid">
+            <div class="tech-card frontend-card">
+                <h2 class="tech-card-title">Frontend Technologies</h2>
+                <p class="tech-card-description">
+                    Modern web interface built with cutting-edge frontend technologies. 
+                    Features responsive design, smooth animations, and an intuitive user experience.
+                </p>
+                <div class="tech-logos">
+                    <div class="tech-logo-item html5">
+                        <img src="{{ url_for('static', filename='logos/html5.svg') }}" alt="HTML5">
+                        <div class="tech-name">HTML5</div>
+                    </div>
+                    <div class="tech-logo-item css3">
+                        <img src="{{ url_for('static', filename='logos/css3.svg') }}" alt="CSS3">
+                        <div class="tech-name">CSS3</div>
+                    </div>
+                    <div class="tech-logo-item javascript">
+                        <img src="{{ url_for('static', filename='logos/javascript.svg') }}" alt="JavaScript">
+                        <div class="tech-name">JavaScript</div>
+                    </div>
+                    <div class="tech-logo-item firebase">
+                        <img src="{{ url_for('static', filename='logos/firebase.svg') }}" alt="Firebase">
+                        <div class="tech-name">Firebase</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-card backend-card">
+                <h2 class="tech-card-title">Backend Technologies</h2>
+                <p class="tech-card-description">
+                    Powerful backend infrastructure combining Python, Flask, and AI capabilities.
+                    Delivers fast, secure, and intelligent responses to user queries.
+                </p>
+                <div class="tech-logos">
+                    <div class="tech-logo-item python">
+                        <img src="{{ url_for('static', filename='logos/python.svg') }}" alt="Python Logo">
+                        <div class="tech-name">Python</div>
+                    </div>
+                    <div class="tech-logo-item flask">
+                        <img src="{{ url_for('static', filename='logos/flask.svg') }}" alt="Flask Logo">
+                        <div class="tech-name">Flask</div>
+                    </div>
+                    <div class="tech-logo-item ollama">
+                        <img src="{{ url_for('static', filename='logos/ollama.svg') }}" alt="Ollama Logo">
+                        <div class="tech-name">Ollama</div>
+                    </div>
+                    <div class="tech-logo-item mistral">
+                        <img src="{{ url_for('static', filename='logos/mistral.svg') }}" alt="Mistral Logo">
+                        <div class="tech-name">Mistral</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="{{ url_for('static', filename='firebase-config.js') }}"></script>
+    <script>
+        // Initialize Firebase
+        const auth = firebase.auth();
+
+        // Chat history functionality
+        let currentChat = null;
+        const chatList = document.getElementById('chatList');
+
+        function formatTimestamp(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diff = now - date;
+            
+            // If less than 24 hours ago, show relative time
+            if (diff < 24 * 60 * 60 * 1000) {
+                if (diff < 60 * 1000) return 'Just now';
+                if (diff < 60 * 60 * 1000) return `${Math.floor(diff / (60 * 1000))}m ago`;
+                return `${Math.floor(diff / (60 * 60 * 1000))}h ago`;
+            }
+            
+            // If more than 24 hours ago, show date
+            return date.toLocaleDateString();
+        }
+
+        function startNewChat() {
+            window.location.href = '/chat';
+        }
+
+        function loadChat(chat) {
+            window.location.href = `/chat?id=${chat.id}`;
+        }
+
+        function deleteChat(chatId, event) {
+            // Prevent the chat item click event from firing
+            event.stopPropagation();
+            
+            let chats = JSON.parse(localStorage.getItem('chats') || '[]');
+            chats = chats.filter(chat => chat.id !== chatId);
+            localStorage.setItem('chats', JSON.stringify(chats));
+            updateChatList();
+        }
+
+        function getTitleFromChat(chat) {
+            // Get the first user message from the chat
+            if (chat.messages && chat.messages.length > 0) {
+                const firstUserMessage = chat.messages.find(msg => msg.role === 'user');
+                if (firstUserMessage && firstUserMessage.content) {
+                    // Get first sentence and take only first 3 words
+                    const firstSentence = firstUserMessage.content.split(/[.!?]/)[0];
+                    const words = firstSentence.trim().split(/\s+/);
+                    return words.slice(0, 3).join(' ') + (words.length > 3 ? '...' : '');
+                }
+            }
+            // Fallback to existing title or default
+            return chat.title || 'New Chat';
+        }
+
+        function updateChatList() {
+            chatList.innerHTML = '';
+            const chats = JSON.parse(localStorage.getItem('chats') || '[]');
+            
+            // Sort chats by timestamp (newest first)
+            chats.sort((a, b) => b.timestamp - a.timestamp);
+            
+            chats.forEach(chat => {
+                const chatItem = document.createElement('div');
+                chatItem.className = `chat-item ${chat.id === currentChat?.id ? 'active' : ''}`;
+                const displayTitle = getTitleFromChat(chat);
+                chatItem.innerHTML = `
+                    <span>💬</span>
+                    <div class="chat-item-content">
+                        <div class="chat-item-title">${displayTitle}</div>
+                    </div>
+                    <button class="delete-chat-btn" onclick="deleteChat('${chat.id}', event)" title="Delete chat">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 6H5H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M10 11V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14 11V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                `;
+                chatItem.onclick = (e) => {
+                    // Only load chat if the delete button wasn't clicked
+                    if (!e.target.closest('.delete-chat-btn')) {
+                        loadChat(chat);
+                    }
+                };
+                chatList.appendChild(chatItem);
+            });
+        }
+
+        // Sidebar functionality
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const menuButton = document.querySelector('.menu-button');
+            const overlay = document.querySelector('.overlay');
+            
+            sidebar.classList.toggle('active');
+            menuButton.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // Check if user is signed in
+        auth.onAuthStateChanged((user) => {
+            if (!user) {
+                // User is not signed in, redirect to sign in page
+                window.location.href = '/';
+            }
+        });
+
+        // Sign out function
+        function signOut() {
+            auth.signOut().then(() => {
+                window.location.href = '/';
+            }).catch((error) => {
+                console.error('Sign out error:', error);
+            });
+        }
+
+        // Theme management
+        function toggleTheme() {
+            const body = document.body;
+            const isDark = body.classList.toggle('light-theme');
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+            updateThemeIcon();
+        }
+
+        function updateThemeIcon() {
+            const themeToggle = document.getElementById('themeToggle');
+            const isLight = document.body.classList.contains('light-theme');
+            themeToggle.innerHTML = isLight ? 
+                `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>` :
+                `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM12 19C8.13401 19 5 15.866 5 12C5 8.13401 8.13401 5 12 5C15.866 5 19 8.13401 19 12C19 15.866 15.866 19 12 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 1V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 21V23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.22 4.22L5.64 5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M18.36 18.36L19.78 19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M1 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21 12H23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.22 19.78L5.64 18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>`;
+        }
+
+        // Initialize theme
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+            }
+            updateThemeIcon();
+        });
+
+        // Initialize chat list
+        updateChatList();
+    </script>
+</body>
+</html> 
