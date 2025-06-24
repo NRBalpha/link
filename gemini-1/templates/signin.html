@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Link AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #e0e0e0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 
+                50px 50px,
+                50px 50px,
+                10px 10px,
+                10px 10px;
+            background-position: 
+                0 0,
+                0 0,
+                0 0,
+                0 0;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Navigation Bar with Frame Styling - Left Side */
+        .navbar {
+            align-items: center;
+            background: transparent;
+            border-radius: 99px;
+            box-shadow: inset 1px 1px 2px #ffffff4c, inset -2px -2px 2px #ffffff1a, inset 0px 0px 8px #ffffff4c;
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            display: flex;
+            gap: 10px;
+            height: 77px;
+            justify-content: center;
+            overflow: hidden;
+            padding: 8px 0px 8px 16px;
+            position: fixed;
+            top: 12px;
+            left: 20px;
+            width: 193px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar:hover {
+            box-shadow: inset 1px 1px 3px #ffffff5c, inset -2px -2px 3px #ffffff2a, inset 0px 0px 10px #ffffff5c;
+        }
+
+        body.dark-theme .navbar {
+            background: transparent;
+            box-shadow: inset 1px 1px 2px #ffffff2c, inset -2px -2px 2px #ffffff0a, inset 0px 0px 8px #ffffff2c;
+        }
+
+        body.dark-theme .navbar:hover {
+            box-shadow: inset 1px 1px 3px #ffffff3c, inset -2px -2px 3px #ffffff1a, inset 0px 0px 10px #ffffff3c;
+        }
+
+        body.light-theme .navbar {
+            background: transparent;
+            box-shadow: inset 1px 1px 2px #ffffff6c, inset -2px -2px 2px #ffffff3a, inset 0px 0px 8px #ffffff6c;
+        }
+
+        body.light-theme .navbar:hover {
+            box-shadow: inset 1px 1px 3px #ffffff7c, inset -2px -2px 3px #ffffff4a, inset 0px 0px 10px #ffffff7c;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #123456;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .logo:hover {
+            background: rgba(30, 50, 71, 0.1);
+            transform: translateY(-1px);
+        }
+
+        body.light-theme .logo {
+            color: #123456;
+        }
+
+        /* Right Dock with Frame Styling */
+        .right-dock {
+            align-items: center;
+            background: transparent;
+            border-radius: 99px;
+            box-shadow: inset 1px 1px 2px #ffffff4c, inset -2px -2px 2px #ffffff1a, inset 0px 0px 8px #ffffff4c;
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            display: flex;
+            gap: 10px;
+            height: 77px;
+            justify-content: center;
+            overflow: hidden;
+            padding: 8px 16px 8px 0px;
+            position: fixed;
+            top: 12px;
+            right: 20px;
+            width: 120px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .right-dock:hover {
+            box-shadow: inset 1px 1px 3px #ffffff5c, inset -2px -2px 3px #ffffff2a, inset 0px 0px 10px #ffffff5c;
+        }
+
+        body.dark-theme .right-dock {
+            background: transparent;
+            box-shadow: inset 1px 1px 2px #ffffff2c, inset -2px -2px 2px #ffffff0a, inset 0px 0px 8px #ffffff2c;
+        }
+
+        body.dark-theme .right-dock:hover {
+            box-shadow: inset 1px 1px 3px #ffffff3c, inset -2px -2px 3px #ffffff1a, inset 0px 0px 10px #ffffff3c;
+        }
+
+        body.light-theme .right-dock {
+            background: transparent;
+            box-shadow: inset 1px 1px 2px #ffffff6c, inset -2px -2px 2px #ffffff3a, inset 0px 0px 8px #ffffff6c;
+        }
+
+        body.light-theme .right-dock:hover {
+            box-shadow: inset 1px 1px 3px #ffffff7c, inset -2px -2px 3px #ffffff4a, inset 0px 0px 10px #ffffff7c;
+        }
+
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover svg {
+            transform: rotate(30deg);
+        }
+
+        body.light-theme .theme-toggle {
+            color: #333;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .auth-container {
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .signin-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .signin-header h1 {
+            font-size: 2rem;
+            color: var(--google-blue, #4285F4);
+            margin-bottom: 0.5rem;
+        }
+
+        .signin-header p {
+            color: #888;
+        }
+
+        .signin-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--google-blue, #4285F4);
+            box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: #888;
+        }
+
+        .signin-button {
+            background: linear-gradient(45deg, var(--google-blue, #4285F4), #3367D6);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .signin-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+        }
+
+        .signin-button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #888;
+        }
+
+        .signup-link a {
+            color: var(--google-blue, #4285F4);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .forgot-password-link {
+            text-align: right;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .forgot-password-link a {
+            color: var(--google-blue, #4285F4);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .forgot-password-link a:hover {
+            text-decoration: underline;
+        }
+
+        .success-message {
+            color: var(--google-green, #34A853);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(52, 168, 83, 0.1);
+            border-radius: 4px;
+            display: none;
+        }
+
+        .error-message {
+            color: var(--google-red, #EA4335);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(234, 67, 53, 0.1);
+            border-radius: 4px;
+            display: none;
+        }
+
+        .loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Light theme styles */
+        body.light-theme {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            color: #333;
+        }
+
+        body.light-theme::before {
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+            opacity: 0.4;
+        }
+
+        body.light-theme .signin-header h1 {
+            color: #4CAF50;
+        }
+
+        body.light-theme .signin-header p {
+            color: #666;
+        }
+
+        body.light-theme .form-group input {
+            background: transparent;
+            color: #333;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .form-group input::placeholder {
+            color: #888;
+        }
+
+        body.light-theme .signin-button {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+        }
+
+        body.light-theme .signup-link {
+            color: #666;
+        }
+
+        body.light-theme .signup-link a {
+            color: #4CAF50;
+        }
+
+        body.light-theme .error-message {
+            background: rgba(255, 68, 68, 0.1);
+        }
+
+        body.light-theme .loading::after {
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-top-color: #4CAF50;
+        }
+
+        body.light-theme .success-message {
+            color: #4CAF50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .guest-section {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .divider {
+            position: relative;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .divider span {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0 1rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .guest-button {
+            background: transparent;
+            color: var(--google-blue, #4285F4);
+            border: 2px solid var(--google-blue, #4285F4);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        .guest-button:hover {
+            background: var(--google-blue, #4285F4);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+        }
+
+        .guest-note {
+            color: #888;
+            font-size: 0.8rem;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- Right Dock -->
+    <div class="right-dock">
+        <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM12 19C8.13401 19 5 15.866 5 12C5 8.13401 8.13401 5 12 5C15.866 5 19 8.13401 19 12C19 15.866 15.866 19 12 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 1V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 21V23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4.22 4.22L5.64 5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M18.36 18.36L19.78 19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M1 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21 12H23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4.22 19.78L5.64 18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </div>
+
+    <div class="auth-container">
+        <div class="signin-header">
+            <h1>Welcome Back</h1>
+            <p>Sign in to continue chatting</p>
+        </div>
+
+        <form class="signin-form" id="signin-form">
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            <div class="forgot-password-link">
+                <a href="#" onclick="forgotPassword()">Forgot Password?</a>
+            </div>
+            <button type="submit" class="signin-button" id="signin-button">Sign In</button>
+            <div class="error-message" id="error-message"></div>
+            <div class="success-message" id="success-message"></div>
+        </form>
+
+        <div class="guest-section">
+            <div class="divider">
+                <span>or</span>
+            </div>
+            <button type="button" class="guest-button" onclick="continueAsGuest()">Continue as Guest</button>
+            <p class="guest-note">Chat without saving history</p>
+        </div>
+
+        <div class="signup-link">
+            Don't have an account? <a href="/signup">Sign Up</a>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="{{ url_for('static', filename='firebase-config.js') }}"></script>
+    <script>
+        // Initialize Firebase
+        const auth = firebase.auth();
+        const signinForm = document.getElementById('signin-form');
+        const signinButton = document.getElementById('signin-button');
+        const errorMessage = document.getElementById('error-message');
+        const successMessage = document.getElementById('success-message');
+
+        // Check if user is already signed in
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in, redirect to welcome page
+                window.location.href = '/welcome';
+            }
+        });
+
+        // Forgot password function
+        async function forgotPassword() {
+            const email = document.getElementById('email').value;
+            
+            if (!email) {
+                errorMessage.textContent = 'Please enter your email address first';
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+                return;
+            }
+
+            try {
+                // Send password reset email
+                await auth.sendPasswordResetEmail(email);
+                
+                // Show success message
+                successMessage.textContent = 'Password reset email sent! Check your inbox.';
+                successMessage.style.display = 'block';
+                errorMessage.style.display = 'none';
+                
+            } catch (error) {
+                // Show error message
+                errorMessage.textContent = error.message;
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+            }
+        }
+
+        // Continue as guest function
+        function continueAsGuest() {
+            // Set guest mode flag in localStorage
+            localStorage.setItem('guestMode', 'true');
+            localStorage.setItem('guestTimestamp', Date.now().toString());
+            
+            // Redirect to chat page
+            window.location.href = '/chat';
+        }
+
+        // Form submission
+        signinForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                // Disable form and show loading state
+                signinButton.disabled = true;
+                signinButton.classList.add('loading');
+                errorMessage.style.display = 'none';
+                successMessage.style.display = 'none';
+
+                // Sign in user
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                
+                // Redirect to welcome page
+                window.location.href = '/welcome';
+
+            } catch (error) {
+                // Show error message
+                errorMessage.textContent = error.message;
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+                
+                // Re-enable form
+                signinButton.disabled = false;
+                signinButton.classList.remove('loading');
+            }
+        });
+
+        // Theme management
+        function toggleTheme() {
+            const body = document.body;
+            const isDark = body.classList.toggle('light-theme');
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+            updateThemeIcon();
+        }
+
+        function updateThemeIcon() {
+            const themeToggle = document.getElementById('themeToggle');
+            const isLight = document.body.classList.contains('light-theme');
+            themeToggle.innerHTML = isLight ? 
+                `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>` :
+                `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM12 19C8.13401 19 5 15.866 5 12C5 8.13401 8.13401 5 12 5C15.866 5 19 8.13401 19 12C19 15.866 15.866 19 12 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 1V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 21V23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.22 4.22L5.64 5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M18.36 18.36L19.78 19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M1 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21 12H23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.22 19.78L5.64 18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>`;
+        }
+
+        // Initialize theme
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+            }
+            updateThemeIcon();
+        });
+    </script>
+</body>
+</html> 

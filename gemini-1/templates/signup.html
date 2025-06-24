@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Link AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #e0e0e0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 
+                50px 50px,
+                50px 50px,
+                10px 10px,
+                10px 10px;
+            background-position: 
+                0 0,
+                0 0,
+                0 0,
+                0 0;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .signup-container {
+            background: transparent;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .signup-header h1 {
+            font-size: 2rem;
+            color: #4CAF50;
+            margin-bottom: 0.5rem;
+        }
+
+        .signup-header p {
+            color: #888;
+        }
+
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: #888;
+        }
+
+        .signup-button {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .signup-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .signup-button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .signin-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #888;
+        }
+
+        .signin-link a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .signin-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(255, 68, 68, 0.1);
+            border-radius: 4px;
+            display: none;
+        }
+
+        .loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .success-message {
+            color: #4CAF50;
+            text-align: center;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 4px;
+            display: none;
+        }
+
+        /* Light theme styles */
+        body.light-theme {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            color: #333;
+        }
+
+        body.light-theme::before {
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+            opacity: 0.4;
+        }
+
+        body.light-theme .signup-container {
+            background: transparent;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .signup-header h1 {
+            color: #4CAF50;
+        }
+
+        body.light-theme .signup-header p {
+            color: #666;
+        }
+
+        body.light-theme .form-group input {
+            background: transparent;
+            color: #333;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .form-group input::placeholder {
+            color: #888;
+        }
+
+        body.light-theme .signup-button {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+        }
+
+        body.light-theme .signin-link {
+            color: #666;
+        }
+
+        body.light-theme .signin-link a {
+            color: #4CAF50;
+        }
+
+        body.light-theme .error-message {
+            background: rgba(255, 68, 68, 0.1);
+        }
+
+        body.light-theme .success-message {
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        body.light-theme .loading::after {
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-top-color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-header">
+            <h1>Create Account</h1>
+            <p>Join Link AI and start chatting</p>
+        </div>
+
+        <form class="signup-form" id="signup-form">
+            <div class="form-group">
+                <input type="text" id="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="signup-button" id="signup-button">Sign Up</button>
+            <div class="error-message" id="error-message"></div>
+            <div class="success-message" id="success-message">Account created successfully! Redirecting...</div>
+        </form>
+
+        <div class="signin-link">
+            Already have an account? <a href="/">Sign In</a>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="{{ url_for('static', filename='firebase-config.js') }}"></script>
+    <script>
+        // Initialize Firebase
+        const auth = firebase.auth();
+        const signupForm = document.getElementById('signup-form');
+        const signupButton = document.getElementById('signup-button');
+        const errorMessage = document.getElementById('error-message');
+        const successMessage = document.getElementById('success-message');
+
+        // Check if user is already signed in
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in, redirect to welcome page
+                window.location.href = '/welcome';
+            }
+        });
+
+        // Form submission
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                // Disable form and show loading state
+                signupButton.disabled = true;
+                signupButton.classList.add('loading');
+                errorMessage.style.display = 'none';
+
+                // Create user
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                
+                // Update profile with username
+                await userCredential.user.updateProfile({
+                    displayName: username
+                });
+
+                // Show success message
+                successMessage.style.display = 'block';
+                
+                // Redirect to welcome page after a short delay
+                setTimeout(() => {
+                    window.location.href = '/welcome';
+                }, 2000);
+
+            } catch (error) {
+                // Show error message
+                errorMessage.textContent = error.message;
+                errorMessage.style.display = 'block';
+                
+                // Re-enable form
+                signupButton.disabled = false;
+                signupButton.classList.remove('loading');
+            }
+        });
+
+        // Initialize theme
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+            }
+        });
+    </script>
+</body>
+</html> 

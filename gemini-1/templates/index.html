@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link AI - Sign In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #e0e0e0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 
+                50px 50px,
+                50px 50px,
+                10px 10px,
+                10px 10px;
+            background-position: 
+                0 0,
+                0 0,
+                0 0,
+                0 0;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Light theme styles */
+        body.light-theme {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            color: #333;
+        }
+
+        body.light-theme::before {
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+            opacity: 0.4;
+        }
+
+        /* CSS Variables for the style guide */
+        :root {
+            --subheadline-regular-font-family: "SF Pro", Helvetica, 'Inter', sans-serif;
+            --subheadline-regular-font-size: 15px;
+            --subheadline-regular-font-style: normal;
+            --subheadline-regular-font-weight: 400;
+            --subheadline-regular-letter-spacing: -0.23px;
+            --subheadline-regular-line-height: 20px;
+        }
+
+        /* Frame styling */
+        .frame {
+          align-items: center;
+          background-color: #ffffff03;
+          border-radius: 99px;
+          box-shadow: inset 1px 1px 2px #ffffff4c, inset -2px -2px 2px #ffffff1a, inset
+            0px 0px 8px #ffffff4c;
+          display: flex;
+          gap: 10px;
+          height: 77px;
+          justify-content: center;
+          overflow: hidden;
+          padding: 8px 0px 8px 16px;
+          position: relative;
+          width: 193px;
+          transition: all 0.3s ease;
+        }
+
+        .frame:hover {
+          box-shadow: inset 1px 1px 3px #ffffff5c, inset -2px -2px 3px #ffffff2a, inset 0px 0px 10px #ffffff5c;
+        }
+
+        .frame .text {
+          -webkit-text-stroke: 1px #000000;
+          color: transparent;
+          font-family: var(--subheadline-regular-font-family);
+          font-size: var(--subheadline-regular-font-size);
+          font-style: var(--subheadline-regular-font-style);
+          font-weight: var(--subheadline-regular-font-weight);
+          height: 20px;
+          letter-spacing: var(--subheadline-regular-letter-spacing);
+          line-height: var(--subheadline-regular-line-height);
+          position: relative;
+          white-space: nowrap;
+          width: 46px;
+        }
+
+        .frame .rectangle {
+          height: 77px;
+          left: 0;
+          object-fit: cover;
+          position: absolute;
+          top: 0;
+          width: 193px;
+        }
+
+        body.dark-theme .frame {
+            background-color: #00000008;
+            box-shadow: inset 1px 1px 2px #ffffff2c, inset -2px -2px 2px #ffffff0a, inset 0px 0px 8px #ffffff2c;
+        }
+
+        body.dark-theme .frame:hover {
+            box-shadow: inset 1px 1px 3px #ffffff3c, inset -2px -2px 3px #ffffff1a, inset 0px 0px 10px #ffffff3c;
+        }
+
+        body.light-theme .frame {
+            background-color: #ffffff08;
+            box-shadow: inset 1px 1px 2px #ffffff6c, inset -2px -2px 2px #ffffff3a, inset 0px 0px 8px #ffffff6c;
+        }
+
+        body.light-theme .frame:hover {
+            box-shadow: inset 1px 1px 3px #ffffff7c, inset -2px -2px 3px #ffffff4a, inset 0px 0px 10px #ffffff7c;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Frame text styling */
+        .frame-text {
+            -webkit-text-stroke: 1px #000000;
+            color: transparent;
+            font-family: var(--subheadline-regular-font-family);
+            font-size: var(--subheadline-regular-font-size);
+            font-style: var(--subheadline-regular-font-style);
+            font-weight: var(--subheadline-regular-font-weight);
+            height: 20px;
+            letter-spacing: var(--subheadline-regular-letter-spacing);
+            line-height: var(--subheadline-regular-line-height);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .theme-toggle, .guest-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+        }
+
+        .theme-toggle:hover, .guest-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-toggle svg, .guest-btn svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover svg {
+            transform: rotate(30deg);
+        }
+
+        .guest-btn:hover svg {
+            transform: scale(1.1);
+        }
+
+        body.light-theme .theme-toggle, body.light-theme .guest-btn {
+            color: #333;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .theme-toggle:hover, body.light-theme .guest-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-button {
+            background: transparent;
+            color: #e0e0e0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-theme .nav-button {
+            color: #333;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .nav-button:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .auth-container {
+            background: transparent;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .auth-container:hover {
+            backdrop-filter: blur(20px) saturate(150%) brightness(1.1);
+            -webkit-backdrop-filter: blur(20px) saturate(150%) brightness(1.1);
+            transform: scale(1.02);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        body.light-theme .auth-container {
+            background: transparent;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        body.light-theme .auth-container:hover {
+            backdrop-filter: blur(20px) saturate(150%) brightness(1.05);
+            -webkit-backdrop-filter: blur(20px) saturate(150%) brightness(1.05);
+            transform: scale(1.02);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-header h1 {
+            font-size: 2rem;
+            color: #4CAF50;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-header p {
+            color: #888;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: #888;
+        }
+
+        .auth-button {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .auth-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .auth-button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #888;
+        }
+
+        .auth-switch a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(255, 68, 68, 0.1);
+            border-radius: 4px;
+            display: none;
+        }
+
+        .loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+   
+    <!-- Right Navigation Frame -->
+    <div class="frame" style="position: fixed; top: 12px; right: 20px; z-index: 1000;">
+        <div class="nav-buttons">
+            <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" title="Toggle Theme">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <button class="nav-button" onclick="enterGuestMode()">Guest</button>
+        </div>
+    </div>
+
+    <!-- Sign In Form -->
+    <div class="auth-container" id="signin-container">
+        <div class="auth-header">
+            <h1>Welcome Back</h1>
+            <p>Sign in to continue chatting</p>
+        </div>
+
+        <form class="auth-form" id="signin-form">
+            <div class="form-group">
+                <input type="email" id="signin-email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="signin-password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="auth-button" id="signin-button">Sign In</button>
+            <div class="error-message" id="signin-error"></div>
+        </form>
+
+        <div class="auth-switch">
+            Don't have an account? <a href="/signup">Sign Up</a>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="{{ url_for('static', filename='firebase-config.js') }}"></script>
+    <script>
+        // Initialize Firebase
+        const auth = firebase.auth();
+        const signinForm = document.getElementById('signin-form');
+        const signinButton = document.getElementById('signin-button');
+        const errorMessage = document.getElementById('signin-error');
+
+        // Check if user is already signed in
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in, redirect to welcome page
+                window.location.href = '/welcome';
+            }
+        });
+
+        // Form submission
+        signinForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('signin-email').value;
+            const password = document.getElementById('signin-password').value;
+
+            try {
+                // Disable form and show loading state
+                signinButton.disabled = true;
+                signinButton.classList.add('loading');
+                errorMessage.style.display = 'none';
+
+                // Sign in user
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                
+                // Redirect to welcome page
+                window.location.href = '/welcome';
+
+            } catch (error) {
+                console.error('Sign in error:', error);
+                // Handle specific error cases
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                    case 'auth/wrong-password':
+                        errorMessage.textContent = 'Invalid email or password';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage.textContent = 'Please enter a valid email address';
+                        break;
+                    case 'auth/too-many-requests':
+                        errorMessage.textContent = 'Too many failed attempts. Please try again later';
+                        break;
+                    default:
+                        errorMessage.textContent = 'An error occurred. Please try again';
+                }
+                errorMessage.style.display = 'block';
+                
+                // Re-enable form
+                signinButton.disabled = false;
+                signinButton.classList.remove('loading');
+            }
+        });
+
+        // Theme toggle function
+        function toggleTheme() {
+            const body = document.body;
+            const isLight = body.classList.contains('light-theme');
+            
+            if (isLight) {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+                localStorage.setItem('theme', 'light');
+            }
+            
+            updateThemeIcon();
+        }
+
+        function updateThemeIcon() {
+            const themeToggle = document.getElementById('themeToggle');
+            const isLight = document.body.classList.contains('light-theme');
+            themeToggle.innerHTML = isLight ? 
+                `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>` :
+                `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM12 19C8.13401 19 5 15.866 5 12C5 8.13401 8.13401 5 12 5C15.866 5 19 8.13401 19 12C19 15.866 15.866 19 12 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 1V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 21V23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.22 4.22L5.64 5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M18.36 18.36L19.78 19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M1 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21 12H23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.22 19.78L5.64 18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>`;
+        }
+
+        // Guest mode function
+        function enterGuestMode() {
+            localStorage.setItem('guestMode', 'true');
+            window.location.href = '/welcome';
+        }
+
+        // Welcome page redirect function
+        function goToWelcomePage() {
+            window.location.href = '/welcome';
+        }
+
+        // Initialize theme on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            
+            // Remove any existing theme classes first
+            document.body.classList.remove('light-theme', 'dark-theme');
+            
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+            } else {
+                // Default to dark theme
+                document.body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+            }
+            
+            updateThemeIcon();
+        });
+
+        // Global theme toggle shortcuts
+        document.addEventListener('keydown', function(event) {
+            // Toggle theme with Ctrl/Cmd + T
+            if ((event.ctrlKey || event.metaKey) && event.key === 't') {
+                event.preventDefault();
+                toggleTheme();
+            }
+        });
+
+        // Double click anywhere to toggle theme (except on input elements)
+        document.addEventListener('dblclick', function(event) {
+            const target = event.target;
+            const isInputElement = target.tagName === 'TEXTAREA' || target.tagName === 'INPUT';
+            const isButton = target.tagName === 'BUTTON';
+            
+            if (!isInputElement && !isButton) {
+                toggleTheme();
+            }
+        });
+    </script>
+</body>
+</html>
+
